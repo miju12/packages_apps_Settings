@@ -89,4 +89,12 @@
     <string name="doubletap_lockscreen_title">Double tap to sleep on losckreen</string>
     <string name="doubletap_lockscreen_summary">Double tap on lockscreen empty areas to switch the screen off</string>
 
+    <!-- Per-app data restrictions -->
+    <string name="data_usage_app_restrict_mobile">Mobile data</string>
+    <string name="data_usage_app_restrict_mobile_summary">Enable usage of mobile data</string>
+    <string name="data_usage_app_restrict_vpn">VPN data</string>
+    <string name="data_usage_app_restrict_vpn_summary">Enable usage of VPN data</string>
+    <string name="data_usage_app_restrict_wifi">Wi\u2011Fi data</string>
+    <string name="data_usage_app_restrict_wifi_summary">Enable usage of Wi\u2011Fi data</string>
+
 </resources>
