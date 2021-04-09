@@ -49,6 +49,10 @@ public class PanelFeatureProviderImpl implements PanelFeatureProvider {
                 return VolumePanel.create(context);
             case ACTION_MEDIA_OUTPUT_GROUP:
                 return MediaOutputGroupPanel.create(context, mediaPackageName);
+            case Settings.Panel.ACTION_MOBILE_DATA:
+                return MobileDataPanel.create(context);
+            case Settings.Panel.ACTION_BLUETOOTH:
+                return BluetoothPanel.create(context);
         }
 
         throw new IllegalStateException("No matching panel for: "  + panelType);

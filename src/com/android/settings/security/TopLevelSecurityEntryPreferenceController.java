@@ -16,6 +16,7 @@
 
 package com.android.settings.security;
 
+import android.app.AppLockManager;
 import android.content.Context;
 import android.hardware.face.FaceManager;
 import android.hardware.fingerprint.FingerprintManager;
@@ -23,6 +24,8 @@ import android.hardware.fingerprint.FingerprintManager;
 import com.android.settings.R;
 import com.android.settings.Utils;
 import com.android.settings.core.BasePreferenceController;
+
+import com.android.settings.custom.biometrics.FaceUtils;
 
 public class TopLevelSecurityEntryPreferenceController extends BasePreferenceController {
 
@@ -41,12 +44,22 @@ public class TopLevelSecurityEntryPreferenceController extends BasePreferenceCon
                 Utils.getFingerprintManagerOrNull(mContext);
         final FaceManager faceManager =
                 Utils.getFaceManagerOrNull(mContext);
-        if (faceManager != null && faceManager.isHardwareDetected()) {
-            return mContext.getText(R.string.security_dashboard_summary_face);
+        final AppLockManager appLockManager =
+                Utils.getAppLockManager(mContext);
+        CharSequence summary = null;
+        if (fpm != null && fpm.isHardwareDetected() && FaceUtils.isFaceUnlockSupported()) {
+            summary = mContext.getText(R.string.security_dashboard_summary_face_and_fingerprint);
         } else if (fpm != null && fpm.isHardwareDetected()) {
-            return mContext.getText(R.string.security_dashboard_summary);
+            summary = mContext.getText(R.string.security_dashboard_summary);
+        } else if (faceManager != null && faceManager.isHardwareDetected()) {
+            summary = mContext.getText(R.string.security_dashboard_summary_face);
         } else {
-            return mContext.getText(R.string.security_dashboard_summary_no_fingerprint);
+            summary = mContext.getText(R.string.security_dashboard_summary_no_fingerprint);
+        }
+        if (appLockManager == null) {
+            return summary;
+        } else {
+            return summary + ", " + mContext.getText(R.string.applock_title);
         }
     }
 }
